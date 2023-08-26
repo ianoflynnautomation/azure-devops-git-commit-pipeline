@@ -20,11 +20,11 @@ steps:
    git config --global user.email $(emailAddress) $ git config --global user.name $(userName)
   workingDirectory:  $(System.DefaultWorkingDirectory)
 
--script: |
-  git checkout -b main
-  echo 'This is a test' > test-file.txt
-  git add -A
-  git commit -m "deployment $(Build.BuildNumber)"
-  git push --set-upstream origin master
+- script: |
+   git checkout -b main
+   echo 'This is a test' > test-file.txt
+   git add -A
+   git commit -m "deployment $(Build.BuildNumber)"
+   git push --set-upstream origin master
   displayName: Add test file
-workingDirectory: $(System.DefaultWorkingDirectory)
+  workingDirectory: $(System.DefaultWorkingDirectory)
