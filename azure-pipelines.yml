@@ -2,12 +2,11 @@ trigger:
 - master
 
 variables:
+- group: vg-test # Add your own variable group name
 - name: emailAddress
-- value: user123@demo.com
-  readonly: true
+  value: $(git-email-address)
 - name: userName
-- value: John Doe
-  readonly: true
+  value: $(git-user-name)
 
 pool:
   vmImage: ubuntu-latest
@@ -17,11 +16,11 @@ steps:
   persistCredentials: true
 
 - script: |
-   git config --global user.email $(emailAddress) $ git config --global user.name $(userName)
+   git config --global user.email $(emailAddress) & git config --global user.name $(userName)
   workingDirectory:  $(System.DefaultWorkingDirectory)
 
 - script: |
-   git checkout -b main
+   git checkout -b master
    echo 'This is a test' > test-file.txt
    git add -A
    git commit -m "deployment $(Build.BuildNumber)"
